@@ -1,0 +1,35 @@
+
+
+#page {
+font-family:"trebuchet ms", verdana, "bitstream vera sans";
+	width:600px;
+	background-color:#fff;
+	/*min-height:300px;*/
+	border-width:0 1px 1px 1px;
+	text-align:left;
+	padding-top: 10;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	padding-left: 50px;
+}
+
+h1 {
+	font-size:22px;
+	letter-spacing:-1px;
+	color:#336699;
+	font-weight:normal;
+}
+
+h1 em {
+	font-style:normal;
+	color:darkorange;	
+}
+
+
+
+
+
+.less {
+	color:#999;
+	font-size:12px;
+}

@@ -1,0 +1,157 @@
+@charset "UTF-8";
+body {
+	background: #DFE6DE;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.green {
+	color: #CCCCCC;
+	background-color: #339900;
+}
+.red {
+	color: #CCCCCC;
+	background-color: #990000;
+}
+.oneColFixCtrHdr #container {
+	width: 780px;  /* using 20px less than a full 800px width allows for browser chrome and avoids a horizontal scroll bar */
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	border: 1px solid #000000;
+	text-align: left; /* this overrides the text-align: center on the body element. */
+}
+.oneColFixCtrHdr #header {
+	padding: 0 10px 0 20px;  /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+	color: #FFFFFF;
+	background-color: #103254;
+}
+.oneColFixCtrHdr #header h1 {
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+}
+.oneColFixCtrHdr #mainContent {
+	padding: 0 20px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	background: #FFFFFF;
+}
+.oneColFixCtrHdr #footer {
+	padding: 0;
+	color:#FFFFFF;
+	background-color: #103254;
+}
+.nq {
+	background-color: #DFE6DE;
+	border: 2px solid #103254;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.oneColFixCtrHdr #footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+}
+
+/* located in demo.css and creates a little calendar icon
+ * instead of a text link for "Choose date"
+ */
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(/img/calendar.png) no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	width: 140px;
+	float: left;
+}
+.right {
+float: right;
+width: 500px;
+
+padding-top: 20px;
+}
+.right h2 {
+font-size: 18px;
+font-weight: 100;
+padding-left: 10px;
+height: 30px;
+line-height: 30px;
+background: #fff url(images/contenth2.jpg) no-repeat;
+}
+.right h2 a {
+text-decoration: none;
+color: #fff;
+}
+.right h2 a:hover {
+color: #111;
+}
+
+.right h3 {
+font-size: 18px;
+font-weight: 100;
+padding-left: 10px;
+height: 30px;
+line-height: 30px;
+background: #fff url(images/contenth1.jpg) no-repeat;
+}
+.right h3 a {
+text-decoration: none;
+color: #fff;
+}
+.right h3 a:hover {
+color: #111;
+}
+
+.left {
+	float: left;
+	width: 180px;
+	padding-top: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	font-weight: lighter;
+}
+.left h2 {
+margin: 10px 0 0 0;
+padding-left: 10px;
+height: 30px;
+line-height: 30px;
+background: #E9CF16 url(images/menuh2.jpg) no-repeat;
+color: #fff;
+font-size: 13px;
+}
+.left ul {
+padding: 10px 0 15px 20px;
+list-style-type: square;
+color: #75B03C;
+}
+.left ul li a {
+text-decoration: none;
+font-weight: 600;
+}
+.left ul li a:hover {
+
+}
+
+.pad_left {
+padding-left: 15px;
+
+}
+
+.pad_right {
+	padding-left: 0px;
+	padding-right: 15px;
+}

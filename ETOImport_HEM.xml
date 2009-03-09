@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:od="urn:schemas-microsoft-com:officedata">
+	<xsd:element name="dataroot">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ETOImport" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="generated" type="xsd:dateTime"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ETOImport">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Generated" type="xsd:dateTime" minOccurs="0" od:jetType="datetime" od:sqlSType="datetime"/>
+				<xsd:element ref="Project" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Project">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ImportCode" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="25"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<xsd:element ref="Customer" minOccurs="0" maxOccurs="unbounded"/>
+				
+				
+				<xsd:element ref="Site" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Site">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="SiteCollection" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Address1" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				
+				<xsd:element name="City" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="State" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="2"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Zip" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="10"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Plus4" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="4"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Barcode" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				
+				
+				
+				
+				
+				<xsd:element name="Active" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="HeatSysFuel" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				<xsd:element name="DHWSysFuel" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ProviderEle" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ProviderGas" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				<xsd:element name="Circa" type="xsd:int" minOccurs="0" od:jetType="longinteger" od:sqlSType="int"/>
+				<xsd:element name="SQFT" type="xsd:int" minOccurs="0" od:jetType="longinteger" od:sqlSType="int"/>
+				<xsd:element name="NoUnits" type="xsd:double" minOccurs="0" od:jetType="double" od:sqlSType="float"/>
+				
+				
+				
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element ref="SiteAttr" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="ProviderAccts" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Customer">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+				<xsd:element name="FirstName" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="LastName" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="15"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ContactName" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillAddress1" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillAddress2" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillAddress3" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillCity" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="35"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillState" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="BillZip" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<xsd:element name="SiteAddress1" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteAddress2" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteAddress3" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="40"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteCity" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="35"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteState" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="SiteZip" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="PhoneHome" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="25"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="PhoneWork" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="25"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="email" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="60"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+				<xsd:element name="Role" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	
+	<xsd:element name="SiteAttr">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Attr" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Value" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="64"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ProviderAccts">
+		<xsd:annotation>
+			<xsd:appinfo/>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProjectID" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="32"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ProviderCode" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+					<xsd:element name="Account" minOccurs="0" od:jetType="text" od:sqlSType="varchar"><xsd:element name="Read" minOccurs="0" od:jetType="text" od:sqlSType="varchar"><xsd:element name="ReadDate" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element><xsd:element name="Qty" minOccurs="0" od:jetType="text" od:sqlSType="varchar">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+						a
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="20"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+					</xsd:element>
+					
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:maxLength value="8"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
