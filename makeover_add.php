@@ -71,15 +71,20 @@ if(isset($_POST['run_request_queue'])){
 	$debug = true; 	  // set to false for production
 	$sendXML = true; // set to true for production
 	
+	$notification_addresses = "lisa@delaris.com, tony@delaris.com";
+	ini_set("sendmail_from", "hem@energytrust.org");
+	
 	$result_array = sendProjects();
 	
-	if($result_array['result']){ // success
-		ini_set("sendmail_from", "hem@energytrust.org");
-		mail("lisa@delaris.com", "integration succeeded", "XML -> " . $result_array['xml']);
+	$message_body = "Queue Result -> " . $result_array['result']->sendToImportQueueResult->XMLQueueMessage .
+		"\r\nXML -> " . $result_array['xml'];
+	
+	if($result_array['result']->sendToImportQueueResult->XMLQueueMessage == 'SUCCESS'){ // success
+		$subject = "HEM - integration succeeded";
 	}else{ // failure
-		ini_set("sendmail_from", "hem@energytrust.org");
-		mail("lisa@delaris.com", "integration failed", "XML -> " . $result_array['xml']);
+		$subject = "HEM - integration failed";
 	}
+	mail($notification_addresses, $subject, $message_body);
 } // endif isset($_POST['run_request_queue'])
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -131,7 +136,7 @@ print_r($result);
 
 $Provider = $result->getBarCodeAndProvidersResult->custUtilities->elecUtility;
 $Barcode = $result->getBarCodeAndProvidersResult->outBarCode;
-echo htmlentities($xml_string);
+echo htmlentities($result_array['xml']);
 ?>
 </pre>
 <?php

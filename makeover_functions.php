@@ -97,7 +97,7 @@ function sendProjects(){
 
 		}
 		
-		$eto_import['Project']['Site']['ProviderAcct'] = $ProviderAccts;
+		$eto_import['Project']['Site']['ProviderAccts'] = $ProviderAccts;
 		
 		if($debug){
 			echo "<pre>";
@@ -131,8 +131,16 @@ function sendProjects(){
 			echo  $xml->outputMemory(true); // output to page
 			$result = true;
 		} // endif $sendXML
+
+		if($debug){
+			echo "<pre>";
+			print_r($result);
+			echo "</pre>";
+			$success = $result->sendToImportQueueResult->XMLQueueMessage;
+			echo "Success -> $success";
+		} // endif $
 		
-		if($result){ // if transmission successful
+		if($result->sendToImportQueueResult->XMLQueueMessage == 'SUCCESS'){ // if transmission successful
 			// update record transmission date so that it's not sent again
 			$updateRequestSQL = "UPDATE `requests` SET `transmitted_at` = NOW() WHERE `id` = {$request_row['id']}";
 			mysql_select_db($database_makeover, $makeover_connection);

@@ -1,9 +1,14 @@
-<?php require_once('Connections/makeover.php'); ?>
 <?php
+require_once('Connections/makeover.php'); 
+require_once('makeover_functions.php');
 
 $debug = false; 	  // set to false for production
-$sendXML = false; // set to true for production
+$sendXML = true; // set to true for production
 
+	
+$notification_addresses = "lisa@delaris.com, tony@delaris.com";  // email notifications of form submit
+ini_set("sendmail_from", "hem@energytrust.org");  // email "From: address
+	
 // get data form electrical provider dropdown
 $electricProviderSQL = "SELECT * FROM  `electric_providers` ORDER BY  `name`"; 
 mysql_select_db($database_makeover, $makeover_connection);
@@ -158,7 +163,21 @@ if(isset($_POST['enter_contest'])){
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month10'])), $_POST['ele_reading10']);
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month11'])), $_POST['ele_reading11']);
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month12'])), $_POST['ele_reading12']);
+
 	
+	$result_array = sendProjects(); // trigger queue
+	
+	$message_body = "Queue Result -> " . $result_array['result']->sendToImportQueueResult->XMLQueueMessage .
+		"\r\nXML -> " . $result_array['xml'];
+	
+	if($result_array['result']->sendToImportQueueResult->XMLQueueMessage == 'SUCCESS'){ // success
+		$subject = "HEM - integration succeeded";
+	}else{ // failure
+		$subject = "HEM - integration failed";
+	} // endif success
+	
+	// send email
+	mail($notification_addresses, $subject, $message_body);
 	
 } // endif isset($_POST['Done'])
 //  Month init
