@@ -1,4 +1,7 @@
-<?php require_once('Connections/makeover.php'); ?>
+<?php
+require_once('Connections/makeover.php'); 
+require_once('makeover_functions.php');
+?>
 <?php
 
 $debug = false; 	  // set to false for production
