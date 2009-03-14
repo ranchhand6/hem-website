@@ -60,12 +60,18 @@ function sendProjects(){
 		$readingResult = mysql_query($readingsSQL, $makeover_connection) or die(mysql_error());
 		$totalRows_gasReadings = mysql_num_rows($readingResult);
 		
+		// init
+		$ProviderAccts = array();
+		$electricReadings = array();
+		$gasReadings = array();
+		
 		while($reading_row =  mysql_fetch_assoc($readingResult)){ // gas
 		
 			$gasReadings[] = array("Read" => array(
                                     		"Qty" => $reading_row['reading'],
                                     		"ReadDate" => $reading_row['date']));
 		} // end while $reading_row
+		
 		
 		if($totalRows_gasReadings > 0){
 /*			$ProviderAccts[] = array("ProviderCode" => $request_row['utility_gas'],
