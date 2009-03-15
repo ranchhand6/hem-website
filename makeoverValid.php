@@ -227,6 +227,7 @@ function insertReading($request_id, $type, $date, $reading){
 <script type="text/javascript" src="/JS/jquery.datePicker.js"></script>
 <script type="text/javascript" src="/JS/jquery.bgifram.js"></script>
 <script type="text/javascript" src="/JS/date.js"></script>
+<script type="text/javascript" src="SpryAssets/SpryValidationTextField.js"></script>
 <script type="text/javascript">
      $(document).ready(function() {
 	
@@ -247,7 +248,7 @@ function insertReading($request_id, $type, $date, $reading){
         if('<?php echo $_POST['enter_contest'];?>' != ''){
             // DEBUG alert('I Agree has been posted.');
 			$("#thankyou").show(); // hide thank you page
-            $("#mainContent").hide(); // hide thank you page
+			$("#mainContent").hide(); // hide thank you page
 		}; 
         
         $("#introHeader").show();
@@ -309,14 +310,14 @@ function insertReading($request_id, $type, $date, $reading){
         // Submit the Address form
 		$("form").submit(function(){ // reenable on submit
                 
-				$("input[type=text]").filter("[id^='gas_month']").each(function() {
-					$(this).attr("disabled", false);
-				}); // end each
-				
-				// disable ele_month text boxes, only editable through date selectors
-				$("input[type=text]").filter("[id^='ele_month']").each(function() {
-					$(this).attr("disabled", false);
-				}); // end each
+			$("input[type=text]").filter("[id^='gas_month']").each(function() {
+				$(this).attr("disabled", false);
+			}); // end each
+			
+			// disable ele_month text boxes, only editable through date selectors
+			$("input[type=text]").filter("[id^='ele_month']").each(function() {
+				$(this).attr("disabled", false);
+			}); // end each
 		}); // end form submission
 
         // How did you hear about us?
@@ -386,8 +387,6 @@ function insertReading($request_id, $type, $date, $reading){
 			$("#own_home").val("no");
    		}; // end #button_own_no
         // end Do you own your home?
-
-        
 
 
         // Is your home a single-family home?
@@ -634,6 +633,21 @@ function insertReading($request_id, $type, $date, $reading){
                         $("#meter_readings").show("slow"); // show "Enter Meter Readings"
 						$("#gas_readings_table").show("slow"); // show gas
                         $("#electric_readings_table").hide(); // hide electric
+						
+						// Field validation for Gas Utility Readings form.
+						var sprytextfield36 = new Spry.Widget.ValidationTextField("sprytextfield36","none",{validateOn:'blur'});
+						var sprytextfield13 = new Spry.Widget.ValidationTextField("sprytextfield13","none",{validateOn:'blur'});
+						var sprytextfield14 = new Spry.Widget.ValidationTextField("sprytextfield14","none",{validateOn:'blur'});
+						var sprytextfield15 = new Spry.Widget.ValidationTextField("sprytextfield15","none",{validateOn:'blur'});
+						var sprytextfield16 = new Spry.Widget.ValidationTextField("sprytextfield16","none",{validateOn:'blur'});
+						var sprytextfield17 = new Spry.Widget.ValidationTextField("sprytextfield17","none",{validateOn:'blur'});
+						var sprytextfield18 = new Spry.Widget.ValidationTextField("sprytextfield18","none",{validateOn:'blur'});
+						var sprytextfield19 = new Spry.Widget.ValidationTextField("sprytextfield19","none",{validateOn:'blur'});
+						var sprytextfield20 = new Spry.Widget.ValidationTextField("sprytextfield20","none",{validateOn:'blur'});
+						var sprytextfield21 = new Spry.Widget.ValidationTextField("sprytextfield21","none",{validateOn:'blur'});
+						var sprytextfield22 = new Spry.Widget.ValidationTextField("sprytextfield22","none",{validateOn:'blur'});
+						var sprytextfield23 = new Spry.Widget.ValidationTextField("sprytextfield23","none",{validateOn:'blur'});
+						var sprytextfield24 = new Spry.Widget.ValidationTextField("sprytextfield24","none",{validateOn:'blur'});
                         
                     // All good, move on.
                     } else {
@@ -679,6 +693,7 @@ function insertReading($request_id, $type, $date, $reading){
 
  	}); // end $(document).ready
     </script>
+<link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="oneColFixCtrHdr">
@@ -691,7 +706,7 @@ function insertReading($request_id, $type, $date, $reading){
         the Home Energy Makeover contest. You may be asked to provide information from your
         gas and/or electric bills from the last 12 months</strong></p>
 
-    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="HER Request" id="HEMO Contest Entry">
+    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="HER Request" id="HEMO Contest Entry" >
     <input type="hidden" name="referrer" value="<?php if (isset($_POST['referrer'])){echo $_POST['referrer'];}?>" />
 
     <div id="hear" class="questions" style="display: none">
@@ -846,59 +861,98 @@ function insertReading($request_id, $type, $date, $reading){
                 some cases, you may be asked to enter your energy usage information for the last 12 months. This
                 occurs if we are unable to access the data from your utility records. To provide usage information,
                 you will need to refer to your electric and/or gas utility bills.
+				
+				<p>All fields are required</p>
+			
                 <span style="color: red;"><em><div id="Error_Text"><?php echo $Error_Text;?></div></em></span></td>
         </tr>
 
         <tr><td>
             <table width="600" border="0" align="center" cellpadding="3" cellspacing="0">
                 <tr>
-                    <td width="45%"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">First Name:</font><font face="Verdana, Arial, Helvetica, sans-serif"><br />
-                        <input type="text" name="FirstName" value="<?php if (isset($_POST['FirstName'])){echo $_POST['FirstName'];}?>" /></font></td>
-                    <td colspan="3"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Last Name:</font><font face="Verdana, Arial, Helvetica, sans-serif"><br />
-                        <input type="text" name="LastName" value="<?php if (isset($_POST['LastName'])) {echo $_POST['LastName'];}?>" /></font></td>
+                    <td width="45%"><span id="sprytextfield25">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">First Name:
+						<span class="textfieldRequiredMsg"> required </span><br />
+						<input type="text" name="FirstName" value="<?php if (isset($_POST['FirstName'])){echo $_POST['FirstName'];}?>" />
+						</font></span></td>
+                    <td colspan="3"><span id="sprytextfield26">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Last Name:
+						<span class="textfieldRequiredMsg"> required </span><br />
+						<input type="text" name="LastName" value="<?php if (isset($_POST['LastName'])) {echo $_POST['LastName'];}?>" />
+						</font></span></td>
                 </tr>
 
                 <tr>
-                    <td colspan="3"><p><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Street Address:<br /></font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="address" size="50" id="address"
-                            value="<?php if (isset($_POST['address'])){echo $_POST['address'];}?>" /></font><br />
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input name="address2" type="text" id="address2" size="50"
-                            value="<?php if (isset($_POST['address2'])){echo $_POST['address2'];}?>"/></font></p></td>
+                    <td colspan="3">
+						<p><span id="sprytextfield27">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Street Address:
+						<span class="textfieldRequiredMsg"> required </span><br />
+						<input type="text" name="address" size="50" id="address" value="<?php if (isset($_POST['address'])){echo $_POST['address'];}?>" /><br />
+						<input name="address2" type="text" id="address2" size="50" value="<?php if (isset($_POST['address2'])){echo $_POST['address2'];}?>"/>
+						</font></span></p></td>
                 </tr>
 
                 <tr>
-                    <td width="45%"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">City:<br /></font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="city" size="30" id="city"
-                            value="<?php if (isset($_POST['city'])){echo $_POST['city'];}?>" /></font></td>
-                    <td width="27%"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">State:<br /></font>
-                        <input type="text" name="state" size="10" id="state"
-                            value="<?php if (isset($_POST['state'])){echo $_POST['state'];}?>" /></td>
-                    <td width="28%"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Zip Code:<br /></font>
-                        <input name="ZipCode" type="text" size="10" maxlength="10" id="ZipCode"
-                            value="<?php if (isset($_POST['ZipCode'])){echo $_POST['ZipCode'];}?>" /></td>
+                    <td width="45%">
+						<span id="sprytextfield28">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">City:
+						<span class="textfieldRequiredMsg"> required </span><br />
+						<input type="text" name="city" size="30" id="city" value="<?php if (isset($_POST['city'])){echo $_POST['city'];}?>" />
+						</font></span></td>
+						
+                    <td width="27%">
+						<span id="sprytextfield29">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">State:
+						<span class="textfieldRequiredMsg"> required </span><br />
+						<input type="text" name="state" size="10" id="state" value="<?php if (isset($_POST['state'])){echo $_POST['state'];}?>" />
+						</font></span></td>
+                    
+					<td width="28%">
+						<span id="sprytextfield30">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Zip Code:
+						<span class="textfieldRequiredMsg"> required </span>
+						<span class="textfieldInvalidFormatMsg">Invalid format.</span><br />
+						<input name="ZipCode" type="text" size="10" maxlength="10" id="ZipCode" value="<?php if (isset($_POST['ZipCode'])){echo $_POST['ZipCode'];}?>" />
+						</font></span></td>
                 </tr>
 
                 <tr>
-                    <td colspan="3"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Phone Number:<br /></font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="phone" size="50" id="phone"
-                            value="<?php if (isset($_POST['phone'])){echo $_POST['phone'];}?>" />Example: 503-445-1234</font></td>
+                    <td colspan="3">
+						<span id="sprytextfield31">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Phone Number:
+						<span class="textfieldRequiredMsg">required</span>
+						<span class="textfieldInvalidFormatMsg">Invalid format.</span><br />
+                        <input type="text" name="phone" size="50" id="phone" value="<?php if (isset($_POST['phone'])){echo $_POST['phone'];}?>" />
+                        Example: 503-445-1234</font></span></td>
                 </tr>
 
                 <tr>
-                    <td colspan="3"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Email Address:<br /></font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="email" size="50" id="email"
-                            value="<?php if (isset($_POST['email'])){echo $_POST['email'];}?>" /></font></td>
+                    <td colspan="3">
+						<span id="sprytextfield32">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Email Address:
+						<span class="textfieldRequiredMsg">required</span>
+						<span class="textfieldInvalidFormatMsg">Invalid format.</span><br />
+                        <input type="text" name="email" size="50" id="email" value="<?php if (isset($_POST['email'])){echo $_POST['email'];}?>" />
+						</font></span></td>
                 </tr>
 
                 <tr><td colspan="3" bgcolor="#FFFFCC"><p align="center"><strong>About Your Home</strong></p></td></tr>
 
                 <tr>
-                    <td><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Year built:&nbsp;&nbsp; </font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="yearBuilt" size="4" id="yearBuilt"
-                        value="<?php if (isset($_POST['yearBuilt'])){echo $_POST['yearBuilt'];}?>" /></font></td>
-                    <td colspan="2" valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Square Feet:&nbsp;&nbsp; </font>
-                        <font face="Verdana, Arial, Helvetica, sans-serif"><input type="text" name="squareFeet" size="4" id="squareFeet"
-                        value="<?php if (isset($_POST['squareFeet'])){echo $_POST['squareFeet'];}?>" /> (include only finished, heated space)</font></td>
+                    <td>
+						<span id="sprytextfield33">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Year built:&nbsp;&nbsp;
+						<input type="text" name="yearBuilt" size="4" id="yearBuilt" value="<?php if (isset($_POST['yearBuilt'])){echo $_POST['yearBuilt'];}?>" />
+						<span class="textfieldRequiredMsg"> required </span>
+						<span class="textfieldInvalidFormatMsg">Invalid format.</span>
+						<br/></font></span></td>
+                    <td colspan="2" valign="top">
+						<span id="sprytextfield34">
+						<font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Square Feet:&nbsp;&nbsp;
+                        <input type="text" name="squareFeet" size="4" id="squareFeet" value="<?php if (isset($_POST['squareFeet'])){echo $_POST['squareFeet'];}?>" />
+						<span class="textfieldRequiredMsg"> required </span>
+						<span class="textfieldInvalidFormatMsg">Invalid format.</span>
+						<br/>(include only finished, heated space)</font></span></td>
                 </tr>
 
                 <tr><td colspan="3">&nbsp;</td></tr>
@@ -930,13 +984,15 @@ function insertReading($request_id, $type, $date, $reading){
                 <table width="350" border="0">
                 <caption><h3>Electric Utility Readings</h3></caption>
                 <tr>
-                    <th colspan="2" scope="col" nowrap><label>Electric Utility Account Number:&nbsp;
-                        <input type="text" name="electric_account_number" style="width: 150px;" id="electric_account_number" /></label></th>
+                    <th colspan="2" scope="col" nowrap>
+						<br/><span id="sprytextfield35"><label>Electric Utility Account Number:&nbsp;
+                        <input type="text" name="electric_account_number" style="width: 150px;" id="electric_account_number" /></label>
+						</span></th>
                 </tr>
                 <tr>
                     <th colspan="2" scope="col"><label>Electric Utility:<br />
                         <select name="electric_provider" id="electric_provider">
-                            <option>- select one -</option>
+							<option selected>- select one -</option>
                             <?php do {  
                                 echo "<option value=\"".$row_electricProviders['id']."\"";
                                 if (!(strcmp($row_gasProviders['id'], $_POST['electric_provider']))) {
@@ -959,51 +1015,87 @@ function insertReading($request_id, $type, $date, $reading){
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month1" id="ele_month1" class="date-pick" value="<?php if (isset($_POST['ele_month1'])){echo $_POST['ele_month1'];}?>"/></th>
-                    <td><input type="text" name="ele_reading1" id="ele_reading1" style="width: 100px" value="<?php if (isset($_POST['ele_reading1'])){echo $_POST['ele_reading1'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield1">
+						<input type="text" name="ele_reading1" id="ele_reading1" style="width: 100px" value="<?php if (isset($_POST['ele_reading1'])){echo $_POST['ele_reading1'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month2" id="ele_month2" class="date-pick" value="<?php if (isset($_POST['ele_month2'])){echo $_POST['ele_month2'];}?>"/></th>
-                    <td><input type="text" name="ele_reading2" id="ele_reading2" style="width: 100px" value="<?php if (isset($_POST['ele_reading2'])){echo $_POST['ele_reading2'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield2">
+						<input type="text" name="ele_reading2" id="ele_reading2" style="width: 100px" value="<?php if (isset($_POST['ele_reading2'])){echo $_POST['ele_reading2'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month3" id="ele_month3" class="date-pick" value="<?php if (isset($_POST['ele_month3'])){echo $_POST['ele_month3'];}?>"/></th>
-                    <td><input type="text" name="ele_reading3" id="ele_reading3" style="width: 100px" value="<?php if (isset($_POST['ele_reading3'])){echo $_POST['ele_reading3'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield3">
+						<input type="text" name="ele_reading3" id="ele_reading3" style="width: 100px" value="<?php if (isset($_POST['ele_reading3'])){echo $_POST['ele_reading3'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month4" id="ele_month4" class="date-pick" value="<?php if (isset($_POST['ele_month4'])){echo $_POST['ele_month4'];}?>"/></th>
-                    <td><input type="text" name="ele_reading4" id="ele_reading4" style="width: 100px" value="<?php if (isset($_POST['ele_reading4'])){echo $_POST['ele_reading4'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield4">
+						<input type="text" name="ele_reading4" id="ele_reading4" style="width: 100px" value="<?php if (isset($_POST['ele_reading4'])){echo $_POST['ele_reading4'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month5" id="ele_month5" class="date-pick" value="<?php if (isset($_POST['ele_month5'])){echo $_POST['ele_month5'];}?>"/></th>
-                    <td><input type="text" name="ele_reading5" id="ele_reading5" style="width: 100px" value="<?php if (isset($_POST['ele_reading5'])){echo $_POST['ele_reading5'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield5">
+						<input type="text" name="ele_reading5" id="ele_reading5" style="width: 100px" value="<?php if (isset($_POST['ele_reading5'])){echo $_POST['ele_reading5'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month6" id="ele_month6" class="date-pick" value="<?php if (isset($_POST['ele_month6'])){echo $_POST['ele_month6'];}?>"/></th>
-                    <td><input type="text" name="ele_reading6" id="ele_reading6" style="width: 100px" value="<?php if (isset($_POST['ele_reading6'])){echo $_POST['ele_reading6'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield6">
+						<input type="text" name="ele_reading6" id="ele_reading6" style="width: 100px" value="<?php if (isset($_POST['ele_reading6'])){echo $_POST['ele_reading6'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month7" id="ele_month7" class="date-pick" value="<?php if (isset($_POST['ele_month7'])){echo $_POST['ele_month7'];}?>"/></th>
-                    <td><input type="text" name="ele_reading7" id="ele_reading7" style="width: 100px" value="<?php if (isset($_POST['ele_reading7'])){echo $_POST['ele_reading7'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield7">
+						<input type="text" name="ele_reading7" id="ele_reading7" style="width: 100px" value="<?php if (isset($_POST['ele_reading7'])){echo $_POST['ele_reading7'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month8" id="ele_month8" class="date-pick" value="<?php if (isset($_POST['ele_month8'])){echo $_POST['ele_month8'];}?>"/></th>
-                    <td><input type="text" name="ele_reading8" id="ele_reading8" style="width: 100px" value="<?php if (isset($_POST['ele_reading8'])){echo $_POST['ele_reading8'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield8">
+						<input type="text" name="ele_reading8" id="ele_reading8" style="width: 100px" value="<?php if (isset($_POST['ele_reading8'])){echo $_POST['ele_reading8'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month9" id="ele_month9" class="date-pick" value="<?php if (isset($_POST['ele_month9'])){echo $_POST['ele_month9'];}?>"/></th>
-                    <td><input type="text" name="ele_reading9" id="ele_reading9" style="width: 100px" value="<?php if (isset($_POST['ele_reading9'])){echo $_POST['ele_reading9'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield9">
+						<input type="text" name="ele_reading9" id="ele_reading9" style="width: 100px" value="<?php if (isset($_POST['ele_reading9'])){echo $_POST['ele_reading9'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month10" id="ele_month10" class="date-pick" value="<?php if (isset($_POST['ele_month10'])){echo $_POST['ele_month10'];}?>"/></th>
-                    <td><input type="text" name="ele_reading10" id="ele_reading10" style="width: 100px" value="<?php if (isset($_POST['ele_reading10'])){echo $_POST['ele_reading10'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield10">
+						<input type="text" name="ele_reading10" id="ele_reading10" style="width: 100px" value="<?php if (isset($_POST['ele_reading10'])){echo $_POST['ele_reading10'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month11" id="ele_month11" class="date-pick" value="<?php if (isset($_POST['ele_month11'])){echo $_POST['ele_month11'];}?>"/></th>
-                    <td><input type="text" name="ele_reading11" id="ele_reading11" style="width: 100px" value="<?php if (isset($_POST['ele_reading11'])){echo $_POST['ele_reading11'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield11">
+						<input type="text" name="ele_reading11" id="ele_reading11" style="width: 100px" value="<?php if (isset($_POST['ele_reading11'])){echo $_POST['ele_reading11'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="ele_month12" id="ele_month12" class="date-pick" value="<?php if (isset($_POST['ele_month12'])){echo $_POST['ele_month12'];}?>"/></th>
-                    <td><input type="text" name="ele_reading12" id="ele_reading12" style="width: 100px" value="<?php if (isset($_POST['ele_reading12'])){echo $_POST['ele_reading12'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield12">
+						<input type="text" name="ele_reading12" id="ele_reading12" style="width: 100px" value="<?php if (isset($_POST['ele_reading12'])){echo $_POST['ele_reading12'];}?>"/>
+						</span></td>
                 </tr>
                 </table>
             </td>
@@ -1015,13 +1107,16 @@ function insertReading($request_id, $type, $date, $reading){
                     <th colspan="2" scope="col"><label>I don't have gas service:&nbsp;<input type="checkbox" id="nogasutil"></label></th>
                 </tr>
                 <tr>
-                    <th colspan="2" scope="col"><label>Gas Utility Account Number:&nbsp;
-                    <input type="text" name="gas_account_number" id="gas_account_number" style="width: 150px" /></label></th>
+                    <th colspan="2" scope="col">
+						<span id="sprytextfield36">
+						<label>Gas Utility Account Number:&nbsp;
+						<input type="text" name="gas_account_number" id="gas_account_number" style="width: 150px" />
+						</label></span></th>
                 </tr>
                 <tr>
                 <th colspan="2" scope="col"><label>Gas Utility:<br />
                 <select name="gas_provider" id="gas_provider">
-                    <option>- select one -</option>
+					<option selected>- select one -</option>
                     <?php do {  
                         echo "<option value=\"".$row_gasProviders['id']."\"";
                         if (!(strcmp($row_gasProviders['id'], $_POST['gas_provider']))) {
@@ -1045,51 +1140,87 @@ function insertReading($request_id, $type, $date, $reading){
                 </tr>
                 <tr>
                     <th scope="row"><input name="gas_month1" type="text" class="date-pick" id="gas_month1" value="<?php if (isset($_POST['gas_month1'])){echo $_POST['gas_month1'];}?>"/></th>
-                    <td><input type="text" name="gas_reading1" id="gas_reading1" style="width: 100px" value="<?php if (isset($_POST['gas_reading1'])){echo $_POST['gas_reading1'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield13">
+						<input type="text" name="gas_reading1" id="gas_reading1" style="width: 100px" value="<?php if (isset($_POST['gas_reading1'])){echo $_POST['gas_reading1'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month2" id="gas_month2" class="date-pick" value="<?php if (isset($_POST['gas_month2'])){echo $_POST['gas_month2'];}?>"/></th>
-                    <td><input type="text" name="gas_reading2" id="gas_reading2" style="width: 100px" value="<?php if (isset($_POST['gas_reading2'])){echo $_POST['gas_reading2'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield14">
+						<input type="text" name="gas_reading2" id="gas_reading2" style="width: 100px" value="<?php if (isset($_POST['gas_reading2'])){echo $_POST['gas_reading2'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month3" id="gas_month3" class="date-pick" value="<?php if (isset($_POST['gas_month3'])){echo $_POST['gas_month3'];}?>"/></th>
-                    <td><input type="text" name="gas_reading3" id="gas_reading3" style="width: 100px" value="<?php if (isset($_POST['gas_reading3'])){echo $_POST['gas_reading3'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield15">
+						<input type="text" name="gas_reading3" id="gas_reading3" style="width: 100px" value="<?php if (isset($_POST['gas_reading3'])){echo $_POST['gas_reading3'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month4" id="gas_month4" class="date-pick" value="<?php if (isset($_POST['gas_month4'])){echo $_POST['gas_month4'];}?>"/></th>
-                    <td><input type="text" name="gas_reading4" id="gas_reading4" style="width: 100px" value="<?php if (isset($_POST['gas_reading4'])){echo $_POST['gas_reading4'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield16">
+						<input type="text" name="gas_reading4" id="gas_reading4" style="width: 100px" value="<?php if (isset($_POST['gas_reading4'])){echo $_POST['gas_reading4'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month5" id="gas_month5" class="date-pick" value="<?php if (isset($_POST['gas_month5'])){echo $_POST['gas_month5'];}?>"/></th>
-                    <td><input type="text" name="gas_reading5" id="gas_reading5" style="width: 100px" value="<?php if (isset($_POST['gas_reading5'])){echo $_POST['gas_reading5'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield17">
+						<input type="text" name="gas_reading5" id="gas_reading5" style="width: 100px" value="<?php if (isset($_POST['gas_reading5'])){echo $_POST['gas_reading5'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month6" id="gas_month6" class="date-pick" value="<?php if (isset($_POST['gas_month6'])){echo $_POST['gas_month6'];}?>"/></th>
-                    <td><input type="text" name="gas_reading6" id="gas_reading6" style="width: 100px" value="<?php if (isset($_POST['gas_reading6'])){echo $_POST['gas_reading6'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield18">
+						<input type="text" name="gas_reading6" id="gas_reading6" style="width: 100px" value="<?php if (isset($_POST['gas_reading6'])){echo $_POST['gas_reading6'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month7" id="gas_month7" class="date-pick" value="<?php if (isset($_POST['gas_month7'])){echo $_POST['gas_month7'];}?>"/></th>
-                    <td><input type="text" name="gas_reading7" id="gas_reading7" style="width: 100px" value="<?php if (isset($_POST['gas_reading7'])){echo $_POST['gas_reading7'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield19">
+						<input type="text" name="gas_reading7" id="gas_reading7" style="width: 100px" value="<?php if (isset($_POST['gas_reading7'])){echo $_POST['gas_reading7'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month8" id="gas_month8" class="date-pick" value="<?php if (isset($_POST['gas_month8'])){echo $_POST['gas_month8'];}?>"/></th>
-                    <td><input type="text" name="gas_reading8" id="gas_reading8" style="width: 100px" value="<?php if (isset($_POST['gas_reading8'])){echo $_POST['gas_reading8'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield20">
+						<input type="text" name="gas_reading8" id="gas_reading8" style="width: 100px" value="<?php if (isset($_POST['gas_reading8'])){echo $_POST['gas_reading8'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month9" id="gas_month9" class="date-pick" value="<?php if (isset($_POST['gas_month9'])){echo $_POST['gas_month9'];}?>"/></th>
-                    <td><input type="text" name="gas_reading9" id="gas_reading9" style="width: 100px" value="<?php if (isset($_POST['gas_reading9'])){echo $_POST['gas_reading9'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield21">
+						<input type="text" name="gas_reading9" id="gas_reading9" style="width: 100px" value="<?php if (isset($_POST['gas_reading9'])){echo $_POST['gas_reading9'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month10" id="gas_month10" class="date-pick" value="<?php if (isset($_POST['gas_month10'])){echo $_POST['gas_month10'];}?>"/></th>
-                    <td><input type="text" name="gas_reading10" id="gas_reading10" style="width: 100px" value="<?php if (isset($_POST['gas_reading10'])){echo $_POST['gas_reading10'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield22">
+						<input type="text" name="gas_reading10" id="gas_reading10" style="width: 100px" value="<?php if (isset($_POST['gas_reading10'])){echo $_POST['gas_reading10'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month11" id="gas_month11" class="date-pick" value="<?php if (isset($_POST['gas_month11'])){echo $_POST['gas_month11'];}?>"/></th>
-                    <td><input type="text" name="gas_reading11" id="gas_reading11" style="width: 100px" value="<?php if (isset($_POST['gas_reading11'])){echo $_POST['gas_reading11'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield23">
+						<input type="text" name="gas_reading11" id="gas_reading11" style="width: 100px" value="<?php if (isset($_POST['gas_reading11'])){echo $_POST['gas_reading11'];}?>"/>
+						</span></td>
                 </tr>
                 <tr>
                     <th scope="row"><input type="text" name="gas_month12" id="gas_month12" class="date-pick" value="<?php if (isset($_POST['gas_month12'])){echo $_POST['gas_month12'];}?>"/></th>
-                    <td><input type="text" name="gas_reading12" id="gas_reading12" style="width: 100px" value="<?php if (isset($_POST['gas_reading12'])){echo $_POST['gas_reading12'];}?>"/></td>
+                    <td>
+						<span id="sprytextfield24">
+						<input type="text" name="gas_reading12" id="gas_reading12" style="width: 100px" value="<?php if (isset($_POST['gas_reading12'])){echo $_POST['gas_reading12'];}?>"/>
+						</span></td>
                 </tr>
                 </table>
             </td>
@@ -1191,5 +1322,40 @@ function insertReading($request_id, $type, $date, $reading){
   <p>&nbsp;&nbsp;&nbsp;&copy; 2009 Energy Trust of Oregon
   <!-- end #footer --></div>
 <!-- end #container --></div>
+
+<script type="text/javascript">
+<!--
+
+/*
+// Field validation for Electrical Utility Readings form.
+var sprytextfield35 = new Spry.Widget.ValidationTextField("sprytextfield35","none",{validateOn:'blur'});
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1","none",{validateOn:'blur'});
+var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2","none",{validateOn:'blur'});
+var sprytextfield3 = new Spry.Widget.ValidationTextField("sprytextfield3","none",{validateOn:'blur'});
+var sprytextfield4 = new Spry.Widget.ValidationTextField("sprytextfield4","none",{validateOn:'blur'});
+var sprytextfield5 = new Spry.Widget.ValidationTextField("sprytextfield5","none",{validateOn:'blur'});
+var sprytextfield6 = new Spry.Widget.ValidationTextField("sprytextfield6","none",{validateOn:'blur'});
+var sprytextfield7 = new Spry.Widget.ValidationTextField("sprytextfield7","none",{validateOn:'blur'});
+var sprytextfield8 = new Spry.Widget.ValidationTextField("sprytextfield8","none",{validateOn:'blur'});
+var sprytextfield9 = new Spry.Widget.ValidationTextField("sprytextfield9","none",{validateOn:'blur'});
+var sprytextfield10 = new Spry.Widget.ValidationTextField("sprytextfield10","none",{validateOn:'blur'});
+var sprytextfield11 = new Spry.Widget.ValidationTextField("sprytextfield11","none",{validateOn:'blur'});
+var sprytextfield12 = new Spry.Widget.ValidationTextField("sprytextfield12","none",{validateOn:'blur'});
+
+*/
+
+// Field validation for property lookup form.
+var sprytextfield25 = new Spry.Widget.ValidationTextField("sprytextfield25","none",{validateOn:'blur'});
+var sprytextfield26 = new Spry.Widget.ValidationTextField("sprytextfield26","none",{validateOn:'blur'});
+var sprytextfield27 = new Spry.Widget.ValidationTextField("sprytextfield27","none",{validateOn:'blur'});
+var sprytextfield28 = new Spry.Widget.ValidationTextField("sprytextfield28","none",{validateOn:'blur'});
+var sprytextfield29 = new Spry.Widget.ValidationTextField("sprytextfield29","none",{validateOn:'blur'});
+var sprytextfield30 = new Spry.Widget.ValidationTextField("sprytextfield30", "zip_code",{validateOn:'blur'});
+var sprytextfield31 = new Spry.Widget.ValidationTextField("sprytextfield31", "phone_number",{format:"phone_custom" , pattern:"000-000-0000", validateOn:'blur'});
+var sprytextfield32 = new Spry.Widget.ValidationTextField("sprytextfield32", "email",{validateOn:'blur'});
+var sprytextfield33 = new Spry.Widget.ValidationTextField("sprytextfield33", "integer",{validateOn:'blur'});
+var sprytextfield34 = new Spry.Widget.ValidationTextField("sprytextfield34", "integer",{validateOn:'blur'});
+//-->
+</script>
 </body>
 </html>

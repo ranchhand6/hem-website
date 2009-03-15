@@ -1,9 +1,14 @@
-<?php require_once('Connections/makeover.php'); ?>
 <?php
+require_once('Connections/makeover.php'); 
+require_once('makeover_functions.php');
 
 $debug = false; 	  // set to false for production
-$sendXML = false; // set to true for production
+$sendXML = true; // set to true for production
 
+	
+$notification_addresses = "lisa@delaris.com, tony@delaris.com";  // email notifications of form submit
+ini_set("sendmail_from", "hem@energytrust.org");  // email "From: address
+	
 // get data form electrical provider dropdown
 $electricProviderSQL = "SELECT * FROM  `electric_providers` ORDER BY  `name`"; 
 mysql_select_db($database_makeover, $makeover_connection);
@@ -158,7 +163,21 @@ if(isset($_POST['enter_contest'])){
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month10'])), $_POST['ele_reading10']);
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month11'])), $_POST['ele_reading11']);
 	insertReading($request_id, 'ele', date("c", strtotime($_POST['ele_month12'])), $_POST['ele_reading12']);
+
 	
+	$result_array = sendProjects(); // trigger queue
+	
+	$message_body = "Queue Result -> " . $result_array['result']->sendToImportQueueResult->XMLQueueMessage .
+		"\r\nXML -> " . $result_array['xml'];
+	
+	if($result_array['result']->sendToImportQueueResult->XMLQueueMessage == 'SUCCESS'){ // success
+		$subject = "HEM - integration succeeded";
+	}else{ // failure
+		$subject = "HEM - integration failed";
+	} // endif success
+	
+	// send email
+	mail($notification_addresses, $subject, $message_body);
 	
 } // endif isset($_POST['Done'])
 //  Month init
@@ -249,10 +268,6 @@ function insertReading($request_id, $type, $date, $reading){
 			$("#thankyou").show(); // hide thank you page
             $("#mainContent").hide(); // hide thank you page
 		}; 
-        
-        $("#introHeader").show();
-        
-        $("#hear").show();
         
         $("#oregon").hide(); // end #oregon, initially hide
         
@@ -614,14 +629,14 @@ function insertReading($request_id, $type, $date, $reading){
                     
                     // No utilities were found, show both forms.
                     if ((data.Gas_Utility == null) && (data.Electric_Utility == null)) {
-                        //DEBUG alert('No utilities were detected.');
+                        // DEBUG alert('No utilities were detected.');
                         $("#meter_readings").show("slow"); // show "Enter Meter Readings"
                         $("#electric_readings_table").show("slow"); // show electric
 						$("#gas_readings_table").show("slow"); // show gas
                         
                     // No electric utility found, show just that form.
                     } else if ((data.Electric_Utility == null) && (data.Gas_Utility != null)) {
-                        //DEBUG alert('No electric utility was detected.');
+                        // DEBUG alert('No electric utility was detected.');
                         $("#formtable").hide("slow"); // hide the form
                         $("#meter_readings").show("slow"); // show "Enter Meter Readings"
 						$("#gas_readings_table").hide(); // hide gas
@@ -629,7 +644,7 @@ function insertReading($request_id, $type, $date, $reading){
                         
                     // No gas utility found, show just that form.
                     } else if ((data.Electric_Utility != null) && (data.Gas_Utility == null)) {
-                        //DEBUG alert('No gas utility was detected.');
+                        // DEBUG alert('No gas utility was detected.');
                         $("#formtable").hide("slow"); // hide the form
                         $("#meter_readings").show("slow"); // show "Enter Meter Readings"
 						$("#gas_readings_table").show("slow"); // show gas
@@ -637,14 +652,11 @@ function insertReading($request_id, $type, $date, $reading){
                         
                     // All good, move on.
                     } else {
-                        //DEBUG alert('You are good, next form!');
-                        $("#disclaimer").show("slow");
-                        $("#enter_contest").show();
+                        // DEBUG alert('You are good, next form!');
+                        $("#formtable").hide("slow"); // hide the form and other misc junk
                     }
                     
-                    //DEBUG alert("Show the other stuff now!");
-                    
-                    $("#formtable").hide("slow"); // hide the form
+                    // Hide the questions above the form.
                     $("#heat").hide(); // hide the primary heating question
                     $("#utility_gas").hide(); // hide the utility gas question
                     $("#utility_electric").hide(); // hide the utility electric question
@@ -687,14 +699,14 @@ function insertReading($request_id, $type, $date, $reading){
 <div id="header"><h1>Home Energy Makeover<strong> Contest Entry</strong></h1></div>
 
 <div id="mainContent">
-    <p id="introHeader" style="display: none"><strong>Please answer the following questions to confirm that you’re eligible to enter
+    <p id="introHeader"><strong>Please answer the following questions to confirm that you’re eligible to enter
         the Home Energy Makeover contest. You may be asked to provide information from your
         gas and/or electric bills from the last 12 months</strong></p>
 
     <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" name="HER Request" id="HEMO Contest Entry">
     <input type="hidden" name="referrer" value="<?php if (isset($_POST['referrer'])){echo $_POST['referrer'];}?>" />
 
-    <div id="hear" class="questions" style="display: none">
+    <div id="hear" class="questions">
         <h3>How did you hear about us?</h3>
             <input name="hearselect" type="radio" id="hear_bls" value="Better Living Show"
                 <?php if($_POST['hearselect'] == 'Better Living Show'){ echo "checked=\"checked\"";}?> />Better Living Show<br />
@@ -717,23 +729,23 @@ function insertReading($request_id, $type, $date, $reading){
         <input name="in_hear" type="hidden" id="in_hear" value=<?php echo $_POST['in_hear'];?>/>
     </div>
 
-    <div id="oregon" class="questions" style="display: none">
+    <div id="oregon" class="questions">
         <h3>Is your home in Oregon?</h3>
         <input name="oregon" type="button" value="Yes" id="button_oregon_yes"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input name="oregon" type="button" value="No" id="button_oregon_no"/>
         <input name="in_oregon" type="hidden" id="in_oregon" value=<?php echo $_POST['in_oregon'];?>/>
     </div>
     
-    <div id="oregon_np" class="nq" style="display: none"><p>Your home must be located in Oregon to qualify.</p></div>
+    <div id="oregon_np" class="nq"><p>Your home must be located in Oregon to qualify.</p></div>
    
-    <div id="own" class="questions" style="display: none">
+    <div id="own" class="questions">
         <h3>Do you own your home?</h3>
         <input name="own" type="button" value="Yes" id="button_own_yes"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input name="own" type="button" value="No" id="button_own_no"/>
         <input name="own_home" type="hidden" id="own_home" value=<?php echo $_POST['own_home'];?>/>
     </div>
     
-    <div id="own_nq" class="nq" style="display: none">
+    <div id="own_nq" class="nq">
         <p>We’re sorry. You must own your home to be eligible for the Home Energy Makeover Contest.</p>
         <p>To learn how to save energy in your rented home, see
             <a href="http://www.energytrust.org/residential/existinghomes/renters.html">the low-cost,
@@ -741,7 +753,7 @@ function insertReading($request_id, $type, $date, $reading){
             your landlord to make energy-saving improvements that may qualify for Energy Trust incentives.</p>
     </div>
 
-    <div id="singleFamily" class="questions" style="display: none">
+    <div id="singleFamily" class="questions">
         <h3>Is your home a <strong>single-family </strong> home?</h3>
         <p>NOTE: Duplexes, triplexes, apartments and condos do not qualify as single-family homes.</p>
         <input name="single" type="button" value="Yes" id="button_mf_yes"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -749,25 +761,25 @@ function insertReading($request_id, $type, $date, $reading){
         <input name="single_family" type="hidden" id="single_family" value=<?php echo $_POST['single_family'];?>/>
     </div>
     
-    <div id="mf_nq" class="nq" style="display: none">
+    <div id="mf_nq" class="nq">
         <p>We’re sorry.&nbsp; Only single-family, owner-occupied homes are &nbsp;eligible for the Home Energy Makeover Contest.</p>
         <p>To learn how to make your multifamily home more energy efficient, visit Energy Trust’s Web site or call 1-866-311-1822.
             You may qualify for cash-back incentives from Energy Trust and Oregon energy tax credits.</p>
     </div>
 
-    <div id="primary" class="questions" style="display: none">
+    <div id="primary" class="questions">
         <h3><strong>Is your single-family home your primary residence?</strong></h3>
         <input name="primary" type="button" value="Yes" id="button_primary_yes"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input name="primary" type="button" value="No" id="button_primary_no"/>
         <input name="primary_residence" type="hidden" id="primary_residence" value=<?php echo $_POST['primary_residence'];?>/>
-        <div id="oregon_np2" class="nq" style="display: none">
+        <div id="oregon_np2" class="nq">
             <p>We’re sorry. To enter the Home Energy Makeover Contest, your Oregon single-family home must be your primary residence.</p>
             <p>If you own your home as a rental or second home, you may be eligible for Energy Trust programs and cash incentives
                 to make energy efficient improvements. For details, visit our Web site.</p>
         </div>
     </div>
 
-    <div id="heat" class="questions" style="display: none">
+    <div id="heat" class="questions">
         <h3>What is your primary heating fuel?</h3>
         
         <p>
@@ -782,7 +794,7 @@ function insertReading($request_id, $type, $date, $reading){
                 <?php if($_POST['heat'] == 'other'){ echo "checked=\"checked\"";}?>/>Other</label>(Oil, Propane, Wood)<br /></p>
     </div>
     
-    <div id="heat_nq" class="nq" style="display: none">
+    <div id="heat_nq" class="nq">
         <p>We’re sorry. Only homes heated with electricity or natural gas are eligible for the Home Energy Makeover Contest.</p>
         <p>If you’re an Oregon customer of Portland General Electric (PGE) or Pacific Power living in a home heated with oil,
         propane, kerosene, butane or wood, you may be able to weatherize your home and receive free energy-saving light
@@ -801,7 +813,7 @@ function insertReading($request_id, $type, $date, $reading){
             <u>low</u>-cost, no-cost tips to help you start saving energy now</a></p>
     </div>
 
-    <div id="utility_gas" class="questions" style="display: none">
+    <div id="utility_gas" class="questions">
         <h3>Which utility provides gas service to your home?</h3>
 
         <p><label><input type="radio" name="utility_gas" value="CNG" id="utility_gas_cascade"
@@ -812,7 +824,7 @@ function insertReading($request_id, $type, $date, $reading){
             <?php if($_POST['utility_gas'] == 'other'){ echo "checked=\"checked\"";}?>/>Other</label></p>
     </div>
 
-    <div id="heat_np" class="nq" style="display: none">
+    <div id="heat_np" class="nq">
         <p>We’re sorry. Only homes heated with gas from NW Natural or Cascade Natural Gas are eligible for the
         Home Energy Makeover Contest.</p>
     
@@ -820,7 +832,7 @@ function insertReading($request_id, $type, $date, $reading){
         provider. If you have questions, please call us at 1-866-368-7878.</p>
     </div>
     
-    <div id="utility_electric" class="questions" style="display: none">
+    <div id="utility_electric" class="questions">
         <h3>Which utility provides electric service to your home?</h3>
         <p>
         <label><input type="radio" name="utility_electric" value="PGE" id="utility_electric_pge"
@@ -831,7 +843,7 @@ function insertReading($request_id, $type, $date, $reading){
             <?php if($_POST['utility_electric'] == 'other'){ echo "checked=\"checked\"";}?>/>Other</label><br />
         </p>
         
-        <div id="heat_np2" class="nq" style="display: none">
+        <div id="heat_np2" class="nq">
             <p>We’re sorry. Only homes heated with electricity from Portland General Electric or Pacific Power are
                 eligible for the Home Energy Makeover Contest.</p>
             <p>For information on energy-saving programs available for your home, please contact your local electricity
@@ -839,7 +851,7 @@ function insertReading($request_id, $type, $date, $reading){
         </div>
     </div>
 
-    <div id="form" style="display: none">
+    <div id="form">
         <table id="formtable" width="100%" border="0" cellpadding="10" bordercolor="#FFCC33">
         <tr>
             <td bgcolor="#FFFFCC" class="error">Please provide all the information requested in the form below. In
@@ -1168,17 +1180,17 @@ function insertReading($request_id, $type, $date, $reading){
 
 	<!-- end #mainContent --></div>
   
-<div id="thankyou" style="display: none">
+<div id="thankyou">
     
     <br><br><br>
     <p style="padding: 10px 40px 10px 40px">Thank you for entering Energy Trust’s Home Energy Makeover Contest. Finalists will be
-        selected after May 5th, and four winners will be chosen by June 15th. Watch for winner
-        updates on this Web site beginning June 15th.  Good luck!</p>
+        selected after May 5th, and four winners will be chosen by June 1st. Watch for winner
+        updates on this Web site beginning June 1st.  Good luck!</p>
     <br><br><br>
     
 </div>
     
-<div id="disagree" style="display: none">
+<div id="disagree">
     <br><br><br>
     <p style="padding: 10px 40px 10px 40px">This page is shown when somebody does not agree with the T&C.</p>
     <br><br><br>

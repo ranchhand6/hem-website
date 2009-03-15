@@ -1,0 +1,214 @@
+/*
+Template Design by TheWebhub.com
+http://www.thewebhub.com
+Released for free under a Creative Commons Attribution-Share Alike 3.0 Philippines
+*/
+
+/** Common Styles */
+
+body {
+	background: #DFE6DE;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	color: #F06C00;
+}
+
+ul {
+	margin-left: 0px;
+	padding-left: 0px;
+	list-style-type: none;
+}
+
+a {
+	color: #F06C00;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#wrapper {
+	width:950px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	
+}
+
+
+#banner {
+	width: 257px;
+	height: 300px;
+	margin-top: -90px;
+	margin-right: 357px;
+	margin-bottom: 0px;
+	margin-left: 357px;
+	float: left;
+	padding: 0px;
+	
+}
+#header {
+	width: 947px;
+	height: 239px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	background-image: url(/assets/bg_top.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-top: 90px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+	float:left;
+	top: 90px;	
+}
+#menu {
+	float: right;
+	margin-top: -170px;
+	margin-right: 30px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	height: 180px;
+	width: 180px;
+}
+
+/** CONTENT */
+
+#content-wrap {
+	width: 947px;
+	margin: 0 auto;
+	background-image: url(/assets/bg.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+	
+	float:left;
+}
+
+#content {
+	width: 947px;
+	margin: 0px auto;
+	padding-top: 20px;
+	background-image: url(/assets/bg_bottom.jpg);
+	background-repeat: no-repeat;
+	background-position: left bottom;	
+}
+
+#columnA {
+	float: right;
+	width: 500px;
+}
+
+#columnA h2 {
+	border-bottom: 1px #FFA66B dashed;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#columnB {
+	float: left;
+	width: 200px;
+}
+
+#columnB h2 {
+	border-bottom: 1px #FFA66B dashed;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#columnB strong {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #575757;
+}
+
+
+/** FOOTER */
+
+#footer {
+	width: 947px;
+	height: 239px;
+	margin: 0px auto;
+	font-size: 11px;
+	color: #000000;
+	
+	float:left;
+}
+
+#footer p {
+	margin: 0;
+	padding: 5px 10px;
+}
+
+#footer .copyright {
+	float: left;
+	margin: 50px 0px 0px 30px;
+	padding-left: 20px;
+	text-align: center;
+}
+
+#footer .links {
+	float: right;
+	margin: 50px 30px 0px 0px;
+	padding-right: 20px;
+	text-align: center;
+}
+
+#footer .css {
+	padding-left: 20px;
+}
+
+#footer .xhtml {
+	padding-left: 20px;
+}
+
+#footer a {
+}
+/** MENU */
+
+
+/*
+#menu ul {
+	padding: 0px;
+	list-style: none;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+
+#menu li {
+	
+}
+
+#menu a {
+	display: block;
+	float: left;
+	
+	margin-top: 10px;
+	margin-right: 3px;
+	padding: 5px 5px;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 12px;
+	color: #666666;
+}
+
+#menu a:hover {
+	color: #BAB631;
+}
+*/
